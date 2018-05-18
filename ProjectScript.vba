@@ -1,4 +1,4 @@
-Sub ReadHtmlFile()
+Sub ReadHtmlFile() '-- this function read our html file 
     Set docActiv = ActiveDocument
     Dim myFile As String, text As String, textline As String, posLat As Integer, posLong As Integer
     myFile = "F:\Facultate\MS-Office\Proiect\htmlfile.html"
