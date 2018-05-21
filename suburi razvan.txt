@@ -1,0 +1,153 @@
+Public Sub ReadHtmlFile() '-- this function read our html file
+    Dim html As New HTMLDocument
+    Dim docActiv As Document
+    Set docActiv = ActiveDocument
+    Dim ip As Integer
+    Dim jp As Integer
+    Dim ih1 As Integer
+    Dim jh1 As Integer
+    Dim ih2 As Integer
+    Dim jh2 As Integer
+    Dim ih3 As Integer
+    Dim jh3 As Integer
+    Dim ih4 As Integer
+    Dim jh4 As Integer
+    Dim ih5 As Integer
+    Dim jh5 As Integer
+    Dim ih6 As Integer
+    Dim jh6 As Integer
+    Dim myFile As String, text As String, textline As String, posLat As Integer, posLong As Integer, plainText As String
+    myFile = CUsersstudentDesktopMS-OfficeProject-masterproiectmsoffice.html
+    Open myFile For Input As #1
+    Do Until EOF(1)
+        Line Input #1, textline
+    text = text & vbNewLine & textline
+    Loop
+    Close #1
+    With CreateObject(htmlfile) ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+    'MsgBox text= & .body.getElementsByTagName(h2)(0).innerHTML   ' folosim .body. ceva ca sa iei o bucata de cod
+    'docActiv.Paragraphs(1).Range.text = .body.innerHTML
+    Set paragrafe = .body.getElementsByTagName(p)
+    ip = 0
+    For Each paragraf In paragrafe
+        ip = ip + 1
+    Next
+    'MsgBox ip
+    jp = 0
+    For Each paragraf In paragrafe
+        
+       textp = paragraf.innerHTML
+       docActiv.Content.InsertAfter textp
+       docActiv.Content.InsertAfter vbCr
+       jp = jp + 1
+    Next
+    Set paragrafeh2 = .body.getElementsByTagName(h2)
+    ih2 = 0
+    For Each paragrafh2 In paragrafeh2
+        ih2 = ih2 + 1
+    Next
+    'MsgBox ih2
+    jh2 = 0
+    For Each paragrafh2 In paragrafeh2
+        
+       textph2 = paragrafh2.innerHTML
+       docActiv.Content.InsertAfter textph2
+       docActiv.Content.InsertAfter vbCr
+       jh2 = jh2 + 1
+    Next
+    
+    Set paragrafeh1 = .body.getElementsByTagName(h1)
+    ih1 = 0
+    For Each paragrafh1 In paragrafeh1
+        ih1 = ih1 + 1
+    Next
+    'MsgBox ih1
+    jh1 = 0
+    For Each paragrafh1 In paragrafeh1
+        
+       textph1 = paragrafh1.innerHTML
+       docActiv.Content.InsertAfter textph1
+       docActiv.Content.InsertAfter vbCr
+       jh1 = jh1 + 1
+    Next
+    
+    Set paragrafeh3 = .body.getElementsByTagName(h3)
+    ih3 = 0
+    For Each paragrafh3 In paragrafeh3
+        ih3 = ih3 + 1
+    Next
+    'MsgBox ih3
+    jh3 = 0
+    For Each paragrafh3 In paragrafeh3
+        
+       textph4 = paragrafh2.innerHTML
+       docActiv.Content.InsertAfter textph3
+       docActiv.Content.InsertAfter vbCr
+       jh3 = jh3 + 1
+    Next
+    
+    Set paragrafeh4 = .body.getElementsByTagName(h4)
+    ih4 = 0
+    For Each paragrafh4 In paragrafeh4
+        ih4 = ih4 + 1
+    Next
+    'MsgBox ih4
+    jh4 = 0
+    For Each paragrafh4 In paragrafeh4
+        
+       textph4 = paragrafh4.innerHTML
+       docActiv.Content.InsertAfter textph4
+       docActiv.Content.InsertAfter vbCr
+       jh4 = jh4 + 1
+    Next
+    
+    Set paragrafeh5 = .body.getElementsByTagName(h5)
+    ih5 = 0
+    For Each paragrafh5 In paragrafeh5
+        ih5 = ih5 + 1
+    Next
+    'MsgBox ih5
+    jh5 = 0
+    For Each paragrafh5 In paragrafeh5
+        
+       textph5 = paragrafh5.innerHTML
+       docActiv.Content.InsertAfter textph5
+       docActiv.Content.InsertAfter vbCr
+       jh5 = jh5 + 1
+       
+    Next
+    
+    Set paragrafeh6 = .body.getElementsByTagName(h6)
+    ih6 = 0
+    For Each paragrafh6 In paragrafeh6
+        ih6 = ih6 + 1
+    Next
+    'MsgBox ih6
+    jh6 = 0
+    For Each paragrafh6 In paragrafeh6
+        
+       textph6 = paragrafh6.innerHTML
+       docActiv.Content.InsertAfter textph6
+       docActiv.Content.InsertAfter vbCr
+       jh6 = jh6 + 1
+    Next
+    Call afiseazaParagraf(text, 0, docActiv)
+    End With
+    
+    'RemoveHTML (text)
+     'MsgBox text
+    'docActiv.Paragraphs(1).Range.text = plainText
+    'docActiv.Paragraphs(1).Range.text = text  '--this line write in worddocument to check if we read the whole html file
+    
+End Sub
+
+Public Sub afiseazaParagraf(body As String, i As Integer, ByRef docActiv As Document)
+    With docActiv
+        Set paragrafe = .body.getElementsByTagName(p)(i).innerText
+        docActiv.Content.InsertAfter paragrafe
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
