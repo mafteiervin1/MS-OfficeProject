@@ -71,4 +71,5 @@ Public Sub ReadHtmlFile() '-- this function read our html file
     
 End Sub
 
-
+'https://codingislove.com/parse-html-in-excel-vba/
+'https://www.wiseowl.co.uk/blog/s393/scrape-website-html.htm
