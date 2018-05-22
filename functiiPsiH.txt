@@ -1,0 +1,226 @@
+
+Public Sub ReadHtmlFile() '-- this function read our html file
+    Dim html As New HTMLDocument
+    Dim docActiv As Document
+    Set docActiv = ActiveDocument
+    Dim ip As Integer
+    Dim jp As Integer
+    Dim ih1 As Integer
+    Dim jh1 As Integer
+    Dim ih2 As Integer
+    Dim jh2 As Integer
+    Dim ih3 As Integer
+    Dim jh3 As Integer
+    Dim ih4 As Integer
+    Dim jh4 As Integer
+    Dim ih5 As Integer
+    Dim jh5 As Integer
+    Dim ih6 As Integer
+    Dim jh6 As Integer
+    Dim myFile As String, text As String, textline As String, posLat As Integer, posLong As Integer, plainText As String
+    myFile = "C:\Users\Bodo\Desktop\MSOFFICE\Project.html"
+    Open myFile For Input As #1
+    Do Until EOF(1)
+        Line Input #1, textline
+    text = text & vbNewLine & textline
+    Loop
+    Close #1
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+    'MsgBox text= & .body.getElementsByTagName(h2)(0).innerHTML   ' folosim .body. ceva ca sa iei o bucata de cod
+    'docActiv.Paragraphs(1).Range.text = .body.innerHTML
+    ActiveDocument.Range(Start:=docActiv.Paragraphs(docActiv.Paragraphs.Count).Range.Start).Select
+        Selection.ClearFormatting
+    
+    Set paragrafe = .body.getElementsByTagName("p")
+    ip = 0
+    For Each paragraf In paragrafe
+        ip = ip + 1
+    Next
+    'MsgBox ip
+    jp = 0
+    For Each paragraf In paragrafe
+        
+       textp = paragraf.innerHTML
+       'docActiv.Content.InsertAfter textp
+       'docActiv.Content.InsertAfter vbCr
+       jp = jp + 1
+    Next
+    Set paragrafeH2 = .body.getElementsByTagName("h2")
+    ih2 = 0
+    For Each paragrafh2 In paragrafeH2
+        ih2 = ih2 + 1
+    Next
+    'MsgBox ih2
+    jh2 = 0
+    For Each paragrafh2 In paragrafeH2
+        
+       textph2 = paragrafh2.innerHTML
+       'docActiv.Content.InsertAfter textph2
+       'docActiv.Content.InsertAfter vbCr
+       jh2 = jh2 + 1
+    Next
+    
+    Set paragrafeH1 = .body.getElementsByTagName("h1")
+    ih1 = 0
+    For Each paragrafh1 In paragrafeH1
+        ih1 = ih1 + 1
+    Next
+   ' MsgBox ih1
+    jh1 = 0
+    For Each paragrafh1 In paragrafeH1
+        
+       textph1 = paragrafh1.innerHTML
+       'docActiv.Content.InsertAfter textph1
+       'docActiv.Content.InsertAfter vbCr
+       jh1 = jh1 + 1
+    Next
+    
+    Set paragrafeH3 = .body.getElementsByTagName("h3")
+    ih3 = 0
+    For Each paragrafh3 In paragrafeH3
+        ih3 = ih3 + 1
+    Next
+    'MsgBox ih3
+    jh3 = 0
+    For Each paragrafh3 In paragrafeH3
+        
+       textph4 = paragrafh2.innerHTML
+       'docActiv.Content.InsertAfter textph3
+       'docActiv.Content.InsertAfter vbCr
+       jh3 = jh3 + 1
+    Next
+    
+    Set paragrafeH4 = .body.getElementsByTagName("h4")
+    ih4 = 0
+    For Each paragrafh4 In paragrafeH4
+        ih4 = ih4 + 1
+    Next
+    'MsgBox ih4
+    jh4 = 0
+    For Each paragrafh4 In paragrafeH4
+        
+       textph4 = paragrafh4.innerHTML
+       'docActiv.Content.InsertAfter textph4
+       'docActiv.Content.InsertAfter vbCr
+       jh4 = jh4 + 1
+    Next
+    
+    Set paragrafeH5 = .body.getElementsByTagName("h5")
+    ih5 = 0
+    For Each paragrafh5 In paragrafeH5
+        ih5 = ih5 + 1
+    Next
+    'MsgBox ih5
+    jh5 = 0
+    For Each paragrafh5 In paragrafeH5
+        
+       textph5 = paragrafh5.innerHTML
+       'docActiv.Content.InsertAfter textph5
+       'docActiv.Content.InsertAfter vbCr
+       jh5 = jh5 + 1
+       
+    Next
+    
+    Set paragrafeH6 = .body.getElementsByTagName("h6")
+    ih6 = 0
+    For Each paragrafh6 In paragrafeH6
+        ih6 = ih6 + 1
+    Next
+    'MsgBox ih6
+    jh6 = 0
+    For Each paragrafh6 In paragrafeH6
+        
+       textph6 = paragrafh6.innerHTML
+       'docActiv.Content.InsertAfter textph6
+       'docActiv.Content.InsertAfter vbCr
+       jh6 = jh6 + 1
+    Next
+    
+    Call afiseazaParagraf(text, 1, docActiv)
+    Call afiseazaH2(text, 2, docActiv)
+    
+    End With
+    
+    'RemoveHTML (text)
+     'MsgBox text
+    'docActiv.Paragraphs(1).Range.text = plainText
+    'docActiv.Paragraphs(1).Range.text = text  '--this line write in worddocument to check if we read the whole html file
+    
+End Sub
+
+Public Sub afiseazaParagraf(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafe = .body.getElementsByTagName("p")(i).innerText
+        docActiv.Content.InsertAfter paragrafe
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+
+Public Sub afiseazaH2(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH2 = .body.getElementsByTagName("h2")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH2
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+Public Sub afiseazaH1(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH1 = .body.getElementsByTagName("h1")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH1
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+Public Sub afiseazaH3(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH3 = .body.getElementsByTagName("h3")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH3
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+Public Sub afiseazaH4(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH4 = .body.getElementsByTagName("h4")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH4
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+Public Sub afiseazaH5(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH5 = .body.getElementsByTagName("h5")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH5
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+Public Sub afiseazaH6(text As String, i As Integer, ByRef docActiv As Document)
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write text
+    .Close
+        paragrafeH6 = .body.getElementsByTagName("h6")(i).innerText
+        docActiv.Content.InsertAfter paragrafeH6
+        docActiv.Content.InsertAfter vbCr
+    End With
+End Sub
+
+
