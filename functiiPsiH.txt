@@ -139,6 +139,42 @@ Public Sub ReadHtmlFile() '-- this function read our html file
        jh6 = jh6 + 1
     Next
     
+     Set paragrafeUL = .body.getElementsByTagName("ul")
+    iUL = 0
+    For Each paragrafUL In paragrafeUL
+        iUL = iUL + 1
+    Next
+    MsgBox iUL
+    jUL = 0
+    For Each paragrafUL In paragrafeUL
+        Set paragrafeLI = .body.getElementsByTagName("ul")(jUL).getElementsByTagName("li")
+        For Each paragrafLI In paragrafeLI
+            docActiv.Content.InsertAfter paragrafLI.innerText
+            docActiv.Content.InsertAfter vbCr
+        Next
+       jUL = jUL + 1
+       
+    Next
+    
+    Set paragrafeOL = .body.getElementsByTagName("ol")
+    iOL = 0
+    For Each paragrafOL In paragrafeOL
+        iOL = iOL + 1
+    Next
+    MsgBox iOL
+    jOL = 0
+    For Each paragrafOL In paragrafeOL
+        Set paragrafeLI = .body.getElementsByTagName("ol")(jOL).getElementsByTagName("li")
+        iLIordonata = 1
+        For Each paragrafLI In paragrafeLI
+            docActiv.Content.InsertAfter iLIordonata & "." & paragrafLI.innerText
+            docActiv.Content.InsertAfter vbCr
+            iLIordonata = iLIordonata + 1
+        Next
+       jOL = jOL + 1
+       
+    Next
+    
     Call afiseazaParagraf(text, 1, docActiv)
     Call afiseazaH2(text, 2, docActiv)
     
