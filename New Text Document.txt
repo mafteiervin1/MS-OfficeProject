@@ -1,0 +1,101 @@
+
+
+Public Sub ReadHtmlFile() '-- this function read our html file
+    Dim html As New HTMLDocument
+    Dim docActiv As Document
+    Set docActiv = ActiveDocument
+    Dim myFile As String, Text As String, textline As String, posLat As Integer, posLong As Integer, plainText As String
+    myFile = "C:\Users\Bodo\Desktop\MSOFFICE\Project.html"
+    Open myFile For Input As #1
+    Do Until EOF(1)
+        Line Input #1, textline
+    Text = Text & vbNewLine & textline
+    Loop
+    Close #1
+    With CreateObject("htmlfile") ' aici parsam bodyul
+    .Open
+    .write Text
+    .Close
+    ' start------------------------------------------------------------------------------------------------------
+    Dim Titlu As String
+    Titlu = .body.getElementsByTagName("div")(0).getElementsByTagName("FONT")(0).innerHTML
+    Dim Color As String
+    docActiv.Paragraphs(1).Range.Text = Titlu
+    Color = .body.getElementsByTagName("div")(0).getElementsByTagName("FONT")(0).getAttribute("color") ' folosim .body. ceva ca sa iei o bucata de cod
+    Dim Align As String
+    Align = .body.getElementsByTagName("div")(0).getAttribute("style").getAttribute("text-align")
+    Dim H As String
+    H = .body.getElementsByTagName("div")(0).innerHTML
+    Call Font(docActiv, Color, 1)
+    Call Headings(docActiv, H, 1)
+    Call Aligned(docActiv, Align, 1)
+    End With
+
+    'RemoveHTML (text)
+     'MsgBox text
+    'docActiv.Paragraphs(1).Range.text = plainText
+    'docActiv.Paragraphs(1).Range.text = text  '--this line write in worddocument to check if we read the whole html file
+    
+End Sub
+
+Public Function Aligned(ByRef docActiv As Document, Align As String, i As Integer)
+
+    If Align = "center" Then
+    docActiv.Paragraphs(i).Range.ParagraphFormat.Alignment = wdAlignParagraphCenter
+    ElseIf Align = "left" Then
+    docActiv.Paragraphs(i).Range.ParagraphFormat.Alignment = wdAlignParagraphLeft
+    ElseIf Align = "right" Then
+    docActiv.Paragraphs(i).Range.ParagraphFormat.Alignment = wdAlignParagraphRight
+    End If
+
+End Function
+
+Public Function Headings(ByRef docActiv As Document, H As String, i As Integer)
+
+    H = Left(H, 3)
+    H = Right(H, 2)
+    If H = "H1" Then
+    docActiv.Paragraphs(i).Range.Font.Bold = True
+    docActiv.Paragraphs(i).Range.Font.Size = 24
+    ElseIf H = "H2" Then
+    docActiv.Paragraphs(i).Range.Font.Size = 20
+    docActiv.Paragraphs(i).Range.Font.Bold = True
+    ElseIf H = "H3" Then
+    docActiv.Paragraphs(i).Range.Font.Size = 17
+    docActiv.Paragraphs(i).Range.Font.Bold = True
+    ElseIf H = "H4" Then
+    docActiv.Paragraphs(i).Range.Font.Size = 13
+    docActiv.Paragraphs(i).Range.Font.Bold = True
+    ElseIf H = "H5" Then
+    docActiv.Paragraphs(i).Range.Font.Size = 10
+    docActiv.Paragraphs(i).Range.Font.Bold = True
+    ElseIf H = "H6" Then
+    docActiv.Paragraphs(i).Range.Font.Size = 7
+    End If
+    
+End Function
+
+
+
+Public Function Font(ByRef docActiv As Document, Color As String, i As Integer)
+   
+    Dim strHex1 As String
+    Dim strHex2 As String
+    Dim strHex3 As String
+    Dim lngOut1 As Long
+    Dim lngOut2 As Long
+    Dim lngOut3 As Long
+    
+    strHex1 = Right(Left(Color, 3), 2)
+    strHex2 = Right(Left(Color, 5), 2)
+    strHex3 = Right(Left(Color, 7), 2)
+    lngOut1 = CLng("&H" & strHex1)
+    lngOut2 = CLng("&H" & strHex2)
+    lngOut3 = CLng("&H" & strHex3)
+    docActiv.Paragraphs(i).Range.Font.Color = RGB(lngOut1, lngOut2, lngOut3)
+
+End Function
+
+'end-------------------------------------------------------------------------------------------------
+
+
