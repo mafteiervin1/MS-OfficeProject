@@ -5,7 +5,7 @@ Public Sub ReadHtmlFile() '-- this function read our html file
     Set docActiv = ActiveDocument
     Dim myFile As String, Text As String, textline As String, posLat As Integer, posLong As Integer, plainText As String
     Dim i As Integer, j As Integer
-    myFile = "F:\Facultate\MS-Office\Proiect\htmlfile3.html"
+    myFile = "F:\Facultate\MS-Office\Proiect\htmlfile.html"
     Open myFile For Input As #1
     Do Until EOF(1)
         Line Input #1, textline
@@ -59,7 +59,6 @@ Public Sub ReadHtmlFile() '-- this function read our html file
             Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("p")(pCounter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("p")(pCounter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("p")(pCounter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("p")(pCounter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("p")(pCounter).getElementsByTagName("a")(0).href
@@ -75,16 +74,12 @@ Public Sub ReadHtmlFile() '-- this function read our html file
         ElseIf InStr(WrdArray(i), "<h1>") Or InStr(WrdArray(i), "<H1>") Then
             If InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<b><i>") Or InStr(.body.getElementsByTagName("H1")(h1Counter).innerHTML, "<B><I>") Then
                 font = "<b><i>"
-                'MsgBox .body.getElementsByTagName("h1")(h1Counter).innerHTML
             ElseIf InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<i><b>") Or InStr(.body.getElementsByTagName("H1")(h1Counter).innerHTML, "<I><B>") Then
                     font = "<b><i>"
-                    'MsgBox .body.getElementsByTagName("h1")(h1Counter).innerHTML
             ElseIf InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<i>") Or InStr(.body.getElementsByTagName("H1")(h1Counter).innerHTML, "<I>") Then
                     font = "<i>"
-                    'MsgBox .body.getElementsByTagName("h1")(h1Counter).innerHTML
             ElseIf InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<b>") Or InStr(.body.getElementsByTagName("H1")(h1Counter).innerHTML, "<B>") Then
                     font = "<b>"
-                    'MsgBox .body.getElementsByTagName("h1")(h1Counter).innerHTML
             Else: font = "False"
             End If
             Call printH1(Text, h1Counter, docActiv)
@@ -92,7 +87,6 @@ Public Sub ReadHtmlFile() '-- this function read our html file
             Call Headings(docActiv, "<h1>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h1")(h1Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h1")(h1Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h1")(h1Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h1")(h1Counter).getElementsByTagName("a")(0).href
@@ -120,7 +114,6 @@ Public Sub ReadHtmlFile() '-- this function read our html file
             Call Headings(docActiv, "<h2>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h2")(h2Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h2")(h2Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h2")(h2Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h2")(h2Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h2")(h2Counter).getElementsByTagName("a")(0).href
@@ -134,11 +127,21 @@ Public Sub ReadHtmlFile() '-- this function read our html file
         
         ElseIf InStr(WrdArray(i), "<h3") Or InStr(WrdArray(i), "<H3") Then
             Call printH3(Text, h3Counter, docActiv)
-            'Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
+            If InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<b><i>") Or InStr(.body.getElementsByTagName("H3")(h3Counter).innerHTML, "<B><I>") Then
+                font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<i><b>") Or InStr(.body.getElementsByTagName("H3")(h3Counter).innerHTML, "<I><B>") Then
+                    font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<i>") Or InStr(.body.getElementsByTagName("H3")(h3Counter).innerHTML, "<I>") Then
+                    font = "<i>"
+            ElseIf InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<b>") Or InStr(.body.getElementsByTagName("H3")(h3Counter).innerHTML, "<B>") Then
+                    font = "<b>"
+
+            Else: font = "False"
+            End If
+            Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
             Call Headings(docActiv, "<h3>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h3")(h3Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h3")(h3Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h3")(h3Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h3")(h3Counter).getElementsByTagName("a")(0).href
@@ -152,11 +155,24 @@ Public Sub ReadHtmlFile() '-- this function read our html file
         
         ElseIf InStr(WrdArray(i), "<h4") Or InStr(WrdArray(i), "<H4") Then
             Call printH4(Text, h4Counter, docActiv)
-            'Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
+            If InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<b><i>") Or InStr(.body.getElementsByTagName("H4")(h4Counter).innerHTML, "<B><I>") Then
+                font = "<b><i>"
+
+            ElseIf InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<i><b>") Or InStr(.body.getElementsByTagName("H4")(h4Counter).innerHTML, "<I><B>") Then
+                    font = "<b><i>"
+        
+            ElseIf InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<i>") Or InStr(.body.getElementsByTagName("H4")(h4Counter).innerHTML, "<I>") Then
+                    font = "<i>"
+      
+            ElseIf InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<b>") Or InStr(.body.getElementsByTagName("H4")(h4Counter).innerHTML, "<B>") Then
+                    font = "<b>"
+  
+            Else: font = "False"
+            End If
+            Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
             Call Headings(docActiv, "<h4>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h4")(h4Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h4")(h4Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h4")(h4Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h4")(h4Counter).getElementsByTagName("a")(0).href
@@ -170,11 +186,20 @@ Public Sub ReadHtmlFile() '-- this function read our html file
         
         ElseIf InStr(WrdArray(i), "<h5") Or InStr(WrdArray(i), "<H5") Then
             Call printH5(Text, h5Counter, docActiv)
-            'Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
+            If InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<b><i>") Or InStr(.body.getElementsByTagName("H5")(h5Counter).innerHTML, "<B><I>") Then
+                font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<i><b>") Or InStr(.body.getElementsByTagName("H5")(h5Counter).innerHTML, "<I><B>") Then
+                    font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<i>") Or InStr(.body.getElementsByTagName("H5")(h5Counter).innerHTML, "<I>") Then
+                    font = "<i>"
+            ElseIf InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<b>") Or InStr(.body.getElementsByTagName("H5")(h5Counter).innerHTML, "<B>") Then
+                    font = "<b>"
+            Else: font = "False"
+            End If
+            Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
             Call Headings(docActiv, "<h5>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h5")(h5Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h5")(h5Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h5")(h5Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h5")(h5Counter).getElementsByTagName("a")(0).href
@@ -188,11 +213,20 @@ Public Sub ReadHtmlFile() '-- this function read our html file
         
         ElseIf InStr(WrdArray(i), "<h6") Or InStr(WrdArray(i), "<H6") Then
             Call printH6(Text, h6Counter, docActiv)
-            'Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
+            If InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<b><i>") Or InStr(.body.getElementsByTagName("H6")(h6Counter).innerHTML, "<B><I>") Then
+                font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<i><b>") Or InStr(.body.getElementsByTagName("H6")(h6Counter).innerHTML, "<I><B>") Then
+                    font = "<b><i>"
+            ElseIf InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<i>") Or InStr(.body.getElementsByTagName("H6")(h6Counter).innerHTML, "<I>") Then
+                    font = "<i>"
+            ElseIf InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<b>") Or InStr(.body.getElementsByTagName("H6")(h6Counter).innerHTML, "<B>") Then
+                    font = "<b>"
+            Else: font = "False"
+            End If
+            Call setFont(docActiv, font, docActiv.Paragraphs.Count - 1)
             Call Headings(docActiv, "<h6>", docActiv.Paragraphs.Count - 1)
             If InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<font") Or InStr(.body.getElementsByTagName("h6")(h6Counter).innerHTML, "<FONT") Then
                 Call setColor(docActiv, .body.getElementsByTagName("h6")(h6Counter).getElementsByTagName("FONT")(0).getAttribute("color"), docActiv.Paragraphs.Count - 1)
-                'MsgBox "pcounter" & " " & pCounter & "paragrn" & " " & paragraphNumber
             End If
             If InStr(LCase(.body.getElementsByTagName("h6")(h6Counter).innerHTML), "<a") Then
                 link = .body.getElementsByTagName("h6")(h6Counter).getElementsByTagName("a")(0).href
@@ -215,7 +249,6 @@ Public Sub ReadHtmlFile() '-- this function read our html file
             docActiv.Paragraphs.Add
             ActiveDocument.Range(Start:=docActiv.Paragraphs(docActiv.Paragraphs.Count).Range.Start).Select
                 Selection.ClearFormatting
-            'paragraphNumber = paragraphNumber + 1
         
         ElseIf InStr(WrdArray(i), "<ol") Or InStr(WrdArray(i), "<OL") Then
             Call printOL(docActiv, Text, olCounter, docActiv.Paragraphs.Count)
@@ -223,7 +256,6 @@ Public Sub ReadHtmlFile() '-- this function read our html file
             docActiv.Paragraphs.Add
             ActiveDocument.Range(Start:=docActiv.Paragraphs(docActiv.Paragraphs.Count).Range.Start).Select
                 Selection.ClearFormatting
-            'paragraphNumber = paragraphNumber + 1
         End If
             
     'MsgBox UBound(WrdArray)
